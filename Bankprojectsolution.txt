@@ -1,0 +1,162 @@
+1.Choose appropriate primary key(s)
+> Accountnumber
+
+2.Create index on primary key(s)
+>db.banking.ensureIndex({accNum:1},{unique:true})
+
+3.The names and cities of all borrowers. 
+>db.banking.find({},{"custInfo.custName":1,"custInfo.city":1,_id:0})
+"custInfo" : { "custName" : "pooja", "city" : "porur" } }
+"custInfo" : { "custName" : "riya", "city" : "mayabazar" } }
+"custInfo" : { "custName" : "reena", "city" : "nandhihill" } }
+"custInfo" : { "custName" : "anju", "city" : "richmond" } }
+"custInfo" : { "custName" : "Ram", "city" : "ramapuram" } }
+"custInfo" : { "custName" : "vihan", "city" : "porur" } }
+"custInfo" : { "custName" : "kanishk", "city" : "muglivakam" } }
+"custInfo" : { "custName" : "thanu", "city" : "brooklyn" } }
+"custInfo" : { "custName" : "vijay", "city" : "chennai" } }
+"custInfo" : { "custName" : "mahesh", "city" : "chennai" } }
+
+4.The names of borrowers who live in Chennai.
+> db.banking.find({"custInfo.city":"chennai"},{"custInfo.custName":1,_id:0})
+{ "custInfo" : { "custName" : "vijay" } }
+{ "custInfo" : { "custName" : "mahesh" } }
+
+
+5.Find the name, city, and assets of the branch with the largest assets.
+> db.banking.find({},{"brancInfo.branchCity":1,"brancInfo.branchId":1,
+"brancInfo.assets":1}).sort({"brancInfo.assets":-1}).limit(1).pretty()
+{
+        "_id" : 7,
+        "brancInfo" : {
+                "branchId" : "b7",
+                "branchCity" : "pune",
+                "assets" : 1000000
+        }
+}
+
+6.The names and cities of customers who have a loan at Pune branch.
+> db.banking.find({"custInfo.loanAmount":{$exists:true},
+"brancInfo.branchCity":"pune"}).pretty()
+{
+        "_id" : 7,
+        "accNum" : 107,
+        "balance" : 750,
+        "custInfo" : {
+                "custId" : "c7",
+                "custName" : "kanishk",
+                "street" : "water tank street",
+                "city" : "muglivakam",
+                "loanAmount" : 50000
+        },
+        "brancInfo" : {
+                "branchId" : "b7",
+                "branchCity" : "pune",
+                "assets" : 1000000
+        }
+}
+{
+        "_id" : 8,
+        "accNum" : 108,
+        "balance" : 1000,
+        "custInfo" : {
+                "custId" : "c8",
+                "custName" : "thanu",
+                "street" : "birmhill road",
+                "city" : "brooklyn",
+                "depositAmount" : 1000,
+                "loanAmount" : 25050
+        },
+        "brancInfo" : {
+                "branchId" : "b8",
+                "branchCity" : "pune",
+                "assets" : 1000000
+        }
+}
+
+
+7.Find the number of accounts with balances between 700 and 900. 
+> db.banking.find({balance:{$gt:700,$lt:900}}).count()
+    7
+
+
+8.The names of customers with both accounts and loans at Pune branch.
+>  db.banking.find({"custInfo.loanAmount":{$exists:true},
+...
+... "custInfo.depositAmount":{$exists:true},
+...
+... "brancInfo.branchCity":"pune"},{"custInfo.custName":1,_id:0})
+
+
+{ "custInfo" : { "custName" : "thanu" } } 
+
+
+
+9.The customers whose total loans are greater than the total amount in their bank accounts 
+> db.banking.find({$where:"this.custInfo.loanAmount > this.balance"},
+... {"custInfo.custName":1,_id:0})
+{ "custInfo" : { "custName" : "pooja" } }
+{ "custInfo" : { "custName" : "Ram" } }
+{ "custInfo" : { "custName" : "vihan" } }
+{ "custInfo" : { "custName" : "kanishk" } }
+{ "custInfo" : { "custName" : "thanu" } }
+{ "custInfo" : { "custName" : "mahesh" } }
+
+
+
+10.The names of customers living on streets with names ending in "Hill". 
+>  db.banking.find({"custInfo.street":/hill$/},
+{"custInfo.custName":1,_id:0})
+
+{ "custInfo" : { "custName" : "anju" } }
+
+11.The names of customers with an account but not a loan at Pune branch. 
+> db.banking.find({"custInfo.loanAmount":{$exists:false},
+...
+... "custInfo.depositAmount":{$exists:true},
+...
+... "brancInfo.branchCity":"pune"},
+...
+... {"custInfo.custName":1,_id:0})
+
+
+{ "custInfo" : { "custName" : "reena" } }
+
+
+13.The branch with the largest average balance.
+> db.banking.aggregate([{$group:{_id:"$brancInfo.branchId",
+...     large:{$avg:"$balance"}}},
+...     {$sort:{large:-1}},
+...     {$limit:1}])
+
+
+{
+    "_id" : "b9",
+    "large" : 100000.0
+}
+
+
+14.The branch name and number of customers for each branch
+> db.banking.aggregate([{$group:
+...
+...     {_id:"$brancInfo.branchId",numOfCust:{$sum:1}}}])
+{ "_id" : "b8", "numOfCust" : 1 }
+{ "_id" : "b5", "numOfCust" : 1 }
+{ "_id" : "b9", "numOfCust" : 1 }
+{ "_id" : "b3", "numOfCust" : 1 }
+{ "_id" : "b7", "numOfCust" : 1 }
+{ "_id" : "b4", "numOfCust" : 1 }
+{ "_id" : "b2", "numOfCust" : 1 }
+{ "_id" : "b10", "numOfCust" : 1 }
+{ "_id" : "b1", "numOfCust" : 1 }
+{ "_id" : "b6", "numOfCust" : 1 }
+
+
+15.Deposit an additional Rs. 20,000 to Ram’s bank account.
+> db.banking.update({"custInfo.custName":{$regex:/Ram/}},
+...
+... {$inc:{"custInfo.depositAmount":20000}})
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 }) 
+
+
