@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.controller("myCtrl",function($scope){
+			$scope.myFunc=function(e){
+				$scope.x=e.clientX;
+				$scope.y=e.clientY;
+			}
+		});
+	</script>
+</head>
+<body ng-App="myApp" ng-controller="myCtrl">
+	<h1 ng-mousemove="myFunc($event)">MOUSEOVERME!!!</h1>
+	<p>coordinates:{{x+','+y}}</p>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.controller("myCtrl",function($scope){
+			$scope.myFunc=function(e){
+			$scope.keyCode=e.keyCode;
+		}
+		});
+	</script>
+</head>
+<body ng-App="myApp" ng-controller="myCtrl">
+	<input type="text" ng-keydown="myFunc($event)"/>
+	<p>keypressed:{{keyCode}}</p>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/angular.min.js">
+</script>
+<style>
+	table,th,td{border:2px solid blue}
+	th{color:black;background-color: white}
+</style>
+<script>
+var app=angular.module("myApp",[]);
+app.controller("myctrl",function($scope){
+	var average1;
+	var average2;
+
+	$scope.students=[{
+		name:'Kanu',subjects:[{name:'mvc',marks:65},
+								{name:'c#',marks:45},
+								{name:'asp.net',marks:75}],
+		Total:function()
+		{
+			sum=0;
+			for(var i=0;i<$scope.students[0].subjects.length;i++)
+			{
+				sum=sum+$scope.students[0].subjects[i].marks;
+
+			}
+			return sum;
+		},
+
+
+		Average:function()
+			{
+				average1=($scope.students[0].Total()/$scope.students[0].subjects.length);
+				return average1;
+			}
+
+	},{
+	name:'Thanu',subjects:[{name:'mvc',marks:35},
+								{name:'java',marks:85},
+							{name:'ado.net',marks:95}],
+	
+
+		Total:function()
+		{
+			sum=0;
+			for(var i=0;i<$scope.students[1].subjects.length;i++)
+			{
+				sum=sum+$scope.students[1].subjects[i].marks;
+
+			}
+			return sum;
+		},
+		Average:function()
+			{
+				average2=($scope.students[1].Total()/$scope.students[1].subjects.length)
+				return average2;
+			}
+}]
+
+
+$scope.comparision=function()
+{
+	if(average1>=average2)
+	{
+		return average1;
+	}
+	else
+	{
+		return average2;
+	}
+}
+});
+</script>
+</head>
+<body>
+<div ng-App="myApp" ng-controller="myctrl">
+	<table>
+	<tr >
+		<th>StudentName</th>
+		<th>Subject1</th>
+<th>Subject2</th>
+<th>Subject3</th>
+<th>Totalmarks</th>
+<th>Average</th>
+	</tr>
+		
+		<tr> 
+
+			<td>{{students[0].name|uppercase}}</td>
+			<td ng-repeat="subject in students[0].subjects|orderBy:'marks'">
+			{{'Subject:'+subject.name}}<br>{{'marks:'+subject.marks}}</td>
+			
+				<td>{{students[0].Total()}}</td>
+				<td>{{students[0].Average()}}</td>
+			
+		</tr>
+		<tr> 
+
+			<td>{{students[1].name|uppercase}}</td>
+			<td ng-repeat="subject in students[1].subjects|orderBy:'marks'">
+			{{'Subject:'+subject.name}}<br>{{'marks:'+subject.marks}}</td>
+			
+				<td>{{students[1].Total()}}</td>
+				<td>{{students[1].Average()}}</td>
+			
+		</tr>
+	</table>
+
+Highest Average among two is:{{comparision()}}
+
+</div>
+
+</body>
+</html>

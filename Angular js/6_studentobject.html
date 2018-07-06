@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/angular.min.js"></script>
+<script>
+	var app=angular.module("myApp",[])
+	app.controller("myCtrl",function($scope){
+		$scope.student=[
+		{name:'pooja',
+		subjects:[{name:'mongodb', marks:90},
+		{name:'angular', marks:85},
+		{name:'node', marks:95}]},
+
+		{name:'kanu',
+		subjects:[{name:'eng', marks:90},
+		{name:'kan', marks:85},
+		{name:'math', marks:95}]},
+
+		{name:'thanu',
+		subjects:[{name:'science', marks:90},
+		{name:'hindi', marks:85},
+		{name:'social', marks:95}]},
+		total:function(){
+			sum=0;
+			for(var i=0;i<$scope.student[0].subjects.length;i++){
+		sum=sum+$scope.student[i].subjects.marks;
+	}
+}
+	return sum;
+
+},
+average:function(){
+	for(var i=0;i<$scope.student[i].length;i++){
+
+	return $scope.student[i].total()/$scope.student[i].subjects.length;
+
+}
+
+
+		};
+	});
+</script>
+<style>
+	table,th,td{border:2px solid blue}
+	th{color:black;background-color: white}
+</style>
+</head>
+<body ng-App="myApp" ng-controller="myCtrl">
+	<table>
+	<tr >
+		<th>StudentName</th>
+		<th>Subject1</th>
+<th>Subject2</th>
+<th>Subject3</th>
+<th>Totalmarks</th>
+<th>Average</th>
+	</tr>
+		
+		<tr> 
+
+			<td>{{student[i].name|uppercase}}</td>
+			<td ng-repeat="subject in student[i].subjects[i]|orderBy:'marks'">
+			{{'Subject:'+subject.name}}<br>{{'marks:'+subject.marks}}</td>
+			
+				<td>{{student[i].total()}}</td>
+				<td>{{student[i].average()}}</td>
+			
+		</tr>
+	</table>
+
+</body>
+</html>
+
+
+<table border="1">
+<tr>
+<th>StudentName1:</th>
+<td>
+{{students[0].name}}
+</td>
+<th>studentsubjects:</th>
+<td ng-repeat="subject in students[0].subjects">
+{{subject.name}}</td>
+</tr>
+<tr>
+<th>StudentName2:</th>
+<td>
+{{students[1].name}}
+</td>
+<th>studentsubjects:</th>
+<td ng-repeat="subject in students[1].subjects">
+{{subject.name}}</td>
+
+</tr>
+</table>
+
+<p ng-repeat="student in students">
+{{student.Total()}}
+{{student.Average()}}</p>
+<ul>
+  <li ng-repeat="x in students">
+  {{ x.Total() + ' , and  ' + x.Average()}}</li>
+</ul>

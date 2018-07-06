@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script >
+		var app=angular.module("myarr",[]);
+		app.controller("myCtrl",function($scope){
+			$scope.marks=[10,20,30,40];
+		});
+	</script>
+</head>
+<body ng-App="myarr" ng-controller="myCtrl" >
+	<div ng-repeat="mark in marks">
+		{{mark}}
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.controller("myCtrl",function($scope){
+							$scope.marks=[95,88,100,78,99,96]
+
+			$scope.average=function(){
+									var sum=0,avg=0;
+
+				for(var i=0; i<$scope.marks.length;i++){
+				sum=sum+$scope.marks[i];
+			}
+				avg=sum/$scope.marks.length;
+				return avg;
+			}
+		});
+	</script>
+</head>
+<body ng-App="myApp" ng-controller="myCtrl">
+	<div ng-repeat="mark in marks">
+		{{mark}}
+	
+	</div>
+	average marks:	{{average()}}
+
+</body>
+</html>

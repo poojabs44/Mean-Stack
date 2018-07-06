@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.filter("orderFilter",function(){
+			return function(a,con){
+				if(con==true){
+            for(var i=0;i<a.length;i++)
+            {
+            	for(var j=i+1;j<a.length;j++){
+            		if(a[i]<a[j]){
+            			var b=a[i];
+            			a[i]=a[j];
+            			a[j]=b;
+            			}
+            }
+        }
+            return a;
+
+			}
+		
+			
+			
+		
+		else if(con==false){
+            for(var i=0;i<a.length;i++)
+            {
+            	for(var j=i+1;j<a.length;j++){
+            		if(a[i]>a[j]){
+            			var b=a[i];
+            			a[i]=a[j];
+            			a[j]=b;
+            			}
+            }
+        }
+            return a;
+
+			}
+		}
+		});
+		
+			
+			
+		
+		app.controller("myCtrl",function($scope){
+			$scope.names=[10,56,5,8,15];
+		})
+	</script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<div  ng-repeat="name in names|orderFilter:false " ><br>
+<p>{{name}}</p>
+</div>
+</body>
+</html>

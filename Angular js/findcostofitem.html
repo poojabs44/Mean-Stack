@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+</head>
+<body  ng-App="" >
+	<table>
+<tr>
+	<td>Item:</td>
+	<td><input type="text" ng-model="item"/></td></tr>
+<tr>
+	<td>Quant:</td>	
+		<td><input type="number" ng-model="quant"/></td></tr>
+<tr>
+	<td>Cost:</td>	
+		<td><input type="number" ng-model="cost"/></td></tr>
+	<tr>
+	<td>Total:{{quant*cost|currency:'&#8377'}}</td></tr>
+	</table>
+
+</body>
+</html>

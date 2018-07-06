@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.filter("orderFilter",function(){
+			return function(a,con){
+				if(con==true){
+            var desc= a.sort().reverse();
+				return desc;
+			}
+			else if(con==false)
+			{
+				var desc= a.sort();
+				return desc;
+			}
+
+
+			}
+		});
+		app.controller("myCtrl",function($scope){
+			$scope.names=["pooja","kanu","abhiram","thanu"];
+		})
+	</script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<div  ng-repeat="name in names|orderFilter:true " ><br>
+<p>{{name}}</p>
+</div>
+</body>
+</html>

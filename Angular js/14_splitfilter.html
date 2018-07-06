@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.filter("splitFilter", function(){
+			return function(item){
+				var res=item.replace("-"," ");
+				//out=res.join(" ");
+				return res;
+			}
+		});
+		app.controller("myCtrl",function($scope){
+			$scope.name="poo-ja";
+		});
+	</script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<p>{{name|splitFilter}}</p>
+
+</body>
+</html>

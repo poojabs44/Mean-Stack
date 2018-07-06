@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.service("mySer",function(){
+			this.sqroot=function(a){
+				return Math.sqrt(a);
+			}
+		
+		this.power=function(a,b){
+				return Math.pow(a,b);
+			}
+			this.factorial=function(a){
+				var fact=1;
+				for(i=1;i<=a;i++){
+					fact=fact*i;
+				}
+				return fact;
+			}
+			this.fToc=function(a){
+				
+				var convert=parseFloat((5/9)*(a-32));
+				return convert;
+			}
+			});
+		app.controller("myCtrl",function($scope,mySer){
+
+			$scope.sqroot=function(){
+				$scope.v
+
+				return mySer.sqroot($scope.value);
+			}
+			$scope.power=function(){
+
+				return mySer.power($scope.value,$scope.value);
+			}
+			$scope.factorial=function(){
+
+				return mySer.factorial($scope.value);
+			}
+			$scope.fToc=function(){
+
+				return mySer.fToc($scope.value1);
+			}
+
+
+		});
+	</script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<input type="number" ng-model="value"/>
+	
+	<button value="val" ng-click='sqroot()'>find</button>
+	
+	<!--<p>{{sqroot()}}
+</p>
+<p>{{power()}}
+</p>
+<p>{{factorial()}}
+</p>
+<p>{{fToc()}}
+</p>-->
+</body>
+</html>

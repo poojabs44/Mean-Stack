@@ -1,0 +1,43 @@
+<!DOCTYPE html>  
+<html>  
+<script src="js/angular.min.js"></script>  
+<style>  
+.normal {  
+    color:white;  
+    background-color:grey;  
+    padding:20px;  
+    font-family:"Courier New";  
+}  
+.medium {  
+    color:white;  
+    background-color:brown;  
+    padding:30px;  
+    font-family:"Courier New";  
+}  
+.advance {  
+    background-color:red;  
+    padding:40px;  
+    font-family:Verdana;  
+}  
+</style>  
+<body ng-app="">  
+<p>Choose a class:</p>  
+<select ng-model="normal">  
+<option value="normal">Normal</option>  
+<option value="medium">Medium</option>  
+<option value="advance">Advance</option>  
+</select>  
+<div ng-class="advance">  
+  <h1>Welcome To JavaTpoint!</h1>  
+  <p>A solution of all technologies!</p>  
+</div>  
+<div ng-class="medium">  
+  <h1>Welcome To W3school!</h1>  
+  <p>A solution of all technologies!</p>  
+</div>  
+<div ng-class="normal">  
+  <h1>Welcome To tutorialteacher!</h1>  
+  <p>A solution of all technologies!</p>  
+</div>  
+</body>  
+</html>  

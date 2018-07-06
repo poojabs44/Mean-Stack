@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[]);
+		app.filter("factFilter",function(){
+			return function(item){
+
+            var fact=1;
+            for(var i=1;i<=item;i++)
+           {
+          fact=fact*i;
+           }
+		
+				return fact;
+			}
+		
+		});
+		app.controller("myCtrl",function($scope){
+			$scope.number="7";
+		});
+		
+	</script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<input type="number" ng-model="number"/>
+	<p>{{number|factFilter}}</p>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="js/angular.min.js"></script>
+</head>
+<body ng-App="" ng-init="names=['abhiram','pooja','kanishk']">
+	<input type="text" ng-model="namefilter"/>
+	<div ng-repeat="name in names|filter:namefilter">
+		{{$index+1}}:{{name}}
+</div>
+</body>
+</html>

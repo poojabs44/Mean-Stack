@@ -1,0 +1,18 @@
+<html>
+<head>
+	<script type="text/javascript" src="rectangle.js"></script>
+</head>
+<body>
+<script>
+var length;
+var breadth;
+
+length=parseFloat(prompt("enter the length"));
+breadth=parseFloat(prompt("enter the breadth"));
+
+var r= new Rectangle(length,breadth);
+document.writeln("r=>area="+r.calculateArea()+"<br>");
+document.writeln("r=>perimeter="+r.calculatePerimeter()+"<br>");
+</script>
+</body>
+</html>
